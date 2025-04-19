@@ -63,7 +63,7 @@ public:
 
 int main() {
   // instanciate counter
-  Counter counter(100);
+  Counter counter(10000);
   string input = "";
 
   cout << "Guide:";
@@ -83,26 +83,18 @@ int main() {
     cin >> input;
 
     // exit if q key is pressed
-    if (input[0] == 'q') {
-      break;
+    if (input.length() == 2 && isdigit(input[1])) {
+      int times = input[1] - '0';
+      switch (input[0]) {
+        case 'a': for (int i = 0; i < times; ++i) counter.incr1(); break;
+        case 's': for (int i = 0; i < times; ++i) counter.incr10(); break;
+        case 'd': for (int i = 0; i < times; ++i) counter.incr100(); break;
+        case 'f': for (int i = 0; i < times; ++i) counter.incr1000(); break;
+        case 'q': break;
+        default: cout << "Try Again.\n";
+      }
     }
-    // user chose cents
-    if (input[0] == 'a') {
-      counter.incr1();
-    }
-    // user chose dimes
-    if (input[0] == 's') {
-      counter.incr10();
-    }
-    // user chose dollars
-    if (input[0] == 'd') {
-      counter.incr100();
-    }
-    // user chose tens of dollars
-    if (input[0] == 'f') {
-      counter.incr1000();
-    }
-
+    
     // overflow is either caused or requested
     if (counter.overflow() || input[0] == 'o') {
       cout << "\n\n --- Overflow has occured! --- \n";
